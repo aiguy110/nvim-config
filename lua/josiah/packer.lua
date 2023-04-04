@@ -7,26 +7,28 @@ return require('packer').startup(function(use)
 	-- Packer can manage itself
 	use 'wbthomason/packer.nvim'
 
+	-- Telescope fuzzy finder
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.1',
 		requires = { {'nvim-lua/plenary.nvim'} }
 	}
 
-	use {
-		'rose-pine/neovim',
-		as = 'rose-pine',
-		config = function()
-			vim.cmd('colorscheme rose-pine')
-		end
-	}
+	-- Onedark color scheme
+	use { 'navarasu/onedark.nvim', config = function()
+		require('onedark').load()
+	end }
 
+	-- Treesitter for better syntax highlighting and whatnot
 	use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'} )
 	use 'nvim-treesitter/playground'
 
+	-- Harpoon for faster file navication
 	use 'theprimeagen/harpoon'
 
+	-- Undo tree
 	use 'mbbill/undotree'
 
+	-- Quick LSP setup
 	use {
 		'VonHeikemen/lsp-zero.nvim',
 		branch = 'v2.x',
@@ -47,6 +49,7 @@ return require('packer').startup(function(use)
 		{'L3MON4D3/LuaSnip'},     -- Required
 	},
 
+	-- In-editor terminal
 	use {"akinsho/toggleterm.nvim", tag = '*', config = function()
 		require("toggleterm").setup {
 			open_mapping = [[<C-\>]]
