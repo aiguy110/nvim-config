@@ -1,4 +1,27 @@
 -- Python
+-- Find the python command to use
+local function is_command_executable(command)
+	local handle = io.popen("command -v " .. command)
+	local result = handle:read("*a")
+	handle:close()
+
+	return result ~= ""
+end
+
+local check_cmds = {
+	"python3",
+	"/opt/pypy3.9/bin/pypy"
+}
+
+local python_cmd = "python"
+
+for _, cmd in ipairs(check_cmds) do
+	if is_command_executable(cmd) then
+		python_cmd = cmd
+		break
+	end
+end
+
 -- Check if Pipfile is present in root_dir
 local function has_pipfile(root_dir)
 	local handle = io.open(root_dir .. "/Pipfile", "r")
@@ -14,7 +37,7 @@ end
 local function get_pylsp_cmd(root_dir)
 	if has_pipfile(root_dir) then
 		return {
-			"python3",
+			python_cmd,
 			"-m",
 			"pipenv",
 			"run",
@@ -24,6 +47,8 @@ local function get_pylsp_cmd(root_dir)
 		}
 	else
 		return {
+			python_cmd,
+			"-m",
 			"pylsp"
 		}
 	end
