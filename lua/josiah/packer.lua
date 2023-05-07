@@ -31,27 +31,14 @@ return require('packer').startup(function(use)
 	-- Universal commenting
 	use 'tpope/vim-commentary'
 
-	-- Quick LSP setup
-	use {
-		'VonHeikemen/lsp-zero.nvim',
-		branch = 'v2.x',
-		requires = {
-			-- LSP Support
-			{'neovim/nvim-lspconfig'},             -- Required
-			{                                      -- Optional
-			'williamboman/mason.nvim',
-			run = function()
-				pcall(vim.cmd, 'MasonUpdate')
-			end,
-		},
-		{'williamboman/mason-lspconfig.nvim'}, -- Optional
+	-- LSP setup
+	use 'williamboman/mason.nvim'
+	use 'williamboman/mason-lspconfig.nvim'
 
-		-- Autocompletion
-		{'hrsh7th/nvim-cmp'},     -- Required
-		{'hrsh7th/cmp-nvim-lsp'}, -- Required
-		{'L3MON4D3/LuaSnip'},     -- Required
+	use 'hrsh7th/nvim-cmp'     
+	use 'hrsh7th/cmp-nvim-lsp' 
+	use 'hrsh7th/cmp-nvim-lsp-signature-help' 
 
-	},
 
 	-- More LSP stuff
 	use {
@@ -69,18 +56,49 @@ return require('packer').startup(function(use)
 				}
 			})
 		end
-    	},
+	}
+	use 'folke/neodev.nvim'
+
 
 	-- Nerdtree for better fs navigation
-	use 'preservim/nerdtree',
+	use 'preservim/nerdtree'
 
 	-- In-editor terminal
 	use {"akinsho/toggleterm.nvim", tag = '*', config = function()
 		require("toggleterm").setup {
 			open_mapping = [[<C-\>]]
 		}
+		end
+	}
+
+-- Remote editing
+use {
+	'chipsenkbeil/distant.nvim',
+	branch = 'v0.2',
+	config = function()
+		local default_settings = require('distant.settings').chip_default()
+		default_settings.ssh = {
+			other = {
+				StrictHostKeyChecking = 'no'
+			}
+		}
+		require('distant').setup {
+			-- Applies Chip's personal settings to every machine you connect to
+			--
+			-- 1. Ensures that distant servers terminate with no connections
+			-- 2. Provides navigation bindings for remote directories
+			-- 3. Provides keybinding to jump into a remote file's parent directory
+
+			['*'] = default_settings
+		}
 	end
-	},
 }
+
+-- Debug Adapter Protocol client
+use 'mfussenegger/nvim-dap'
+use 'mfussenegger/nvim-dap-python'
+use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+
+
 
 end)
