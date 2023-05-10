@@ -1,50 +1,57 @@
 -- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
 -- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
+vim.cmd([[packadd packer.nvim]])
 
-return require('packer').startup(function(use)
+return require("packer").startup(function(use)
 	-- Packer can manage itself
-	use 'wbthomason/packer.nvim'
+	use("wbthomason/packer.nvim")
 
 	-- Telescope fuzzy finder
-	use {
-		'nvim-telescope/telescope.nvim', tag = '0.1.1',
-		requires = { {'nvim-lua/plenary.nvim'} }
-	}
+	use({
+		"nvim-telescope/telescope.nvim",
+		tag = "0.1.1",
+		requires = { { "nvim-lua/plenary.nvim" } },
+	})
 
 	-- Onedark color scheme
-	use { 'navarasu/onedark.nvim', config = function()
-		require('onedark').load()
-	end }
+	use({
+		"navarasu/onedark.nvim",
+		config = function()
+			require("onedark").load()
+		end,
+	})
 
 	-- Treesitter for better syntax highlighting and whatnot
-	use( 'nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'} )
-	use 'nvim-treesitter/playground'
+	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
+	use("nvim-treesitter/playground")
 
 	-- Harpoon for faster file navication
-	use 'theprimeagen/harpoon'
+	use("theprimeagen/harpoon")
 
 	-- Undo tree
-	use 'mbbill/undotree'
+	use("mbbill/undotree")
 
 	-- Universal commenting
-	use 'tpope/vim-commentary'
+	use("tpope/vim-commentary")
 
 	-- LSP setup
-	use 'williamboman/mason.nvim'
-	use 'williamboman/mason-lspconfig.nvim'
+	use("williamboman/mason.nvim")
+	use("williamboman/mason-lspconfig.nvim")
+	use("neovim/nvim-lspconfig")
 
-	use 'hrsh7th/nvim-cmp'     
-	use 'hrsh7th/cmp-nvim-lsp' 
-	use 'hrsh7th/cmp-nvim-lsp-signature-help' 
-
+	use("hrsh7th/nvim-cmp")
+	use("hrsh7th/cmp-nvim-lsp")
+	use("hrsh7th/cmp-nvim-lsp-signature-help")
+    use("hrsh7th/vim-vsnip")
+	use("lvimuser/lsp-inlayhints.nvim")
+    use("simrat39/rust-tools.nvim")
 
 	-- More LSP stuff
-	use {
-		'jose-elias-alvarez/null-ls.nvim',
+	use({
+		"jose-elias-alvarez/null-ls.nvim",
 		config = function()
-			local null_ls = require('null-ls')
+			local null_ls = require("null-ls")
 			null_ls.setup({
 				sources = {
 					null_ls.builtins.formatting.prettier.with({
@@ -53,52 +60,51 @@ return require('packer').startup(function(use)
 					null_ls.builtins.formatting.stylua,
 					null_ls.builtins.diagnostics.eslint,
 					null_ls.builtins.completion.spell,
-				}
+				},
 			})
-		end
-	}
-	use 'folke/neodev.nvim'
-
+		end,
+	})
+	use("folke/neodev.nvim")
 
 	-- Nerdtree for better fs navigation
-	use 'preservim/nerdtree'
+	use("preservim/nerdtree")
 
 	-- In-editor terminal
-	use {"akinsho/toggleterm.nvim", tag = '*', config = function()
-		require("toggleterm").setup {
-			open_mapping = [[<C-\>]]
-		}
-		end
-	}
+	use({
+		"akinsho/toggleterm.nvim",
+		tag = "*",
+		config = function()
+			require("toggleterm").setup({
+				open_mapping = [[<C-\>]],
+			})
+		end,
+	})
 
--- Remote editing
-use {
-	'chipsenkbeil/distant.nvim',
-	branch = 'v0.2',
-	config = function()
-		local default_settings = require('distant.settings').chip_default()
-		default_settings.ssh = {
-			other = {
-				StrictHostKeyChecking = 'no'
+	-- Remote editing
+	use({
+		"chipsenkbeil/distant.nvim",
+		branch = "v0.2",
+		config = function()
+			local default_settings = require("distant.settings").chip_default()
+			default_settings.ssh = {
+				other = {
+					StrictHostKeyChecking = "no",
+				},
 			}
-		}
-		require('distant').setup {
-			-- Applies Chip's personal settings to every machine you connect to
-			--
-			-- 1. Ensures that distant servers terminate with no connections
-			-- 2. Provides navigation bindings for remote directories
-			-- 3. Provides keybinding to jump into a remote file's parent directory
+			require("distant").setup({
+				-- Applies Chip's personal settings to every machine you connect to
+				--
+				-- 1. Ensures that distant servers terminate with no connections
+				-- 2. Provides navigation bindings for remote directories
+				-- 3. Provides keybinding to jump into a remote file's parent directory
 
-			['*'] = default_settings
-		}
-	end
-}
+				["*"] = default_settings,
+			})
+		end,
+	})
 
--- Debug Adapter Protocol client
-use 'mfussenegger/nvim-dap'
-use 'mfussenegger/nvim-dap-python'
-use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
-
-
-
+	-- Debug Adapter Protocol client
+	use("mfussenegger/nvim-dap")
+	use("mfussenegger/nvim-dap-python")
+	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 end)

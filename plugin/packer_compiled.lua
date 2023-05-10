@@ -74,15 +74,15 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  LuaSnip = {
-    loaded = true,
-    path = "/home/josiah/.local/share/nvim/site/pack/packer/start/LuaSnip",
-    url = "https://github.com/L3MON4D3/LuaSnip"
-  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "/home/josiah/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
+  },
+  ["cmp-nvim-lsp-signature-help"] = {
+    loaded = true,
+    path = "/home/josiah/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp-signature-help",
+    url = "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help"
   },
   ["distant.nvim"] = {
     config = { "\27LJ\2\n­\1\0\0\4\0\v\0\0176\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\0025\1\5\0005\2\4\0=\2\6\1=\1\3\0006\1\0\0'\3\a\0B\1\2\0029\1\b\0015\3\t\0=\0\n\3B\1\2\1K\0\1\0\6*\1\0\0\nsetup\fdistant\nother\1\0\0\1\0\1\26StrictHostKeyChecking\ano\bssh\17chip_default\21distant.settings\frequire\0" },
@@ -95,10 +95,10 @@ _G.packer_plugins = {
     path = "/home/josiah/.local/share/nvim/site/pack/packer/start/harpoon",
     url = "https://github.com/theprimeagen/harpoon"
   },
-  ["lsp-zero.nvim"] = {
+  ["lsp-inlayhints.nvim"] = {
     loaded = true,
-    path = "/home/josiah/.local/share/nvim/site/pack/packer/start/lsp-zero.nvim",
-    url = "https://github.com/VonHeikemen/lsp-zero.nvim"
+    path = "/home/josiah/.local/share/nvim/site/pack/packer/start/lsp-inlayhints.nvim",
+    url = "https://github.com/lvimuser/lsp-inlayhints.nvim"
   },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
@@ -177,6 +177,11 @@ _G.packer_plugins = {
     path = "/home/josiah/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
+  ["rust-tools.nvim"] = {
+    loaded = true,
+    path = "/home/josiah/.local/share/nvim/site/pack/packer/start/rust-tools.nvim",
+    url = "https://github.com/simrat39/rust-tools.nvim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "/home/josiah/.local/share/nvim/site/pack/packer/start/telescope.nvim",
@@ -197,14 +202,19 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/josiah/.local/share/nvim/site/pack/packer/start/vim-commentary",
     url = "https://github.com/tpope/vim-commentary"
+  },
+  ["vim-vsnip"] = {
+    loaded = true,
+    path = "/home/josiah/.local/share/nvim/site/pack/packer/start/vim-vsnip",
+    url = "https://github.com/hrsh7th/vim-vsnip"
   }
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: null-ls.nvim
-time([[Config for null-ls.nvim]], true)
-try_loadstring("\27LJ\2\n–\2\0\0\t\0\17\0\0306\0\0\0'\2\1\0B\0\2\0029\1\2\0005\3\15\0004\4\5\0009\5\3\0009\5\4\0059\5\5\0059\5\6\0055\a\b\0005\b\a\0=\b\t\aB\5\2\2>\5\1\0049\5\3\0009\5\4\0059\5\n\5>\5\2\0049\5\3\0009\5\v\0059\5\f\5>\5\3\0049\5\3\0009\5\r\0059\5\14\5>\5\4\4=\4\16\3B\1\2\1K\0\1\0\fsources\1\0\0\nspell\15completion\veslint\16diagnostics\vstylua\14filetypes\1\0\0\1\5\0\0\thtml\tjson\tyaml\rmarkdown\twith\rprettier\15formatting\rbuiltins\nsetup\fnull-ls\frequire\0", "config", "null-ls.nvim")
-time([[Config for null-ls.nvim]], false)
+-- Config for: distant.nvim
+time([[Config for distant.nvim]], true)
+try_loadstring("\27LJ\2\n­\1\0\0\4\0\v\0\0176\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\0025\1\5\0005\2\4\0=\2\6\1=\1\3\0006\1\0\0'\3\a\0B\1\2\0029\1\b\0015\3\t\0=\0\n\3B\1\2\1K\0\1\0\6*\1\0\0\nsetup\fdistant\nother\1\0\0\1\0\1\26StrictHostKeyChecking\ano\bssh\17chip_default\21distant.settings\frequire\0", "config", "distant.nvim")
+time([[Config for distant.nvim]], false)
 -- Config for: toggleterm.nvim
 time([[Config for toggleterm.nvim]], true)
 try_loadstring("\27LJ\2\nR\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\17open_mapping\n<C-\\>\nsetup\15toggleterm\frequire\0", "config", "toggleterm.nvim")
@@ -213,10 +223,10 @@ time([[Config for toggleterm.nvim]], false)
 time([[Config for onedark.nvim]], true)
 try_loadstring("\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\tload\fonedark\frequire\0", "config", "onedark.nvim")
 time([[Config for onedark.nvim]], false)
--- Config for: distant.nvim
-time([[Config for distant.nvim]], true)
-try_loadstring("\27LJ\2\n­\1\0\0\4\0\v\0\0176\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\0025\1\5\0005\2\4\0=\2\6\1=\1\3\0006\1\0\0'\3\a\0B\1\2\0029\1\b\0015\3\t\0=\0\n\3B\1\2\1K\0\1\0\6*\1\0\0\nsetup\fdistant\nother\1\0\0\1\0\1\26StrictHostKeyChecking\ano\bssh\17chip_default\21distant.settings\frequire\0", "config", "distant.nvim")
-time([[Config for distant.nvim]], false)
+-- Config for: null-ls.nvim
+time([[Config for null-ls.nvim]], true)
+try_loadstring("\27LJ\2\n–\2\0\0\t\0\17\0\0306\0\0\0'\2\1\0B\0\2\0029\1\2\0005\3\15\0004\4\5\0009\5\3\0009\5\4\0059\5\5\0059\5\6\0055\a\b\0005\b\a\0=\b\t\aB\5\2\2>\5\1\0049\5\3\0009\5\4\0059\5\n\5>\5\2\0049\5\3\0009\5\v\0059\5\f\5>\5\3\0049\5\3\0009\5\r\0059\5\14\5>\5\4\4=\4\16\3B\1\2\1K\0\1\0\fsources\1\0\0\nspell\15completion\veslint\16diagnostics\vstylua\14filetypes\1\0\0\1\5\0\0\thtml\tjson\tyaml\rmarkdown\twith\rprettier\15formatting\rbuiltins\nsetup\fnull-ls\frequire\0", "config", "null-ls.nvim")
+time([[Config for null-ls.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
