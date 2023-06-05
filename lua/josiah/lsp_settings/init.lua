@@ -48,3 +48,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
 require("josiah.lsp_settings.python")
 require("josiah.lsp_settings.rust")
 require("josiah.lsp_settings.lua")
+require("josiah.lsp_settings.go")
