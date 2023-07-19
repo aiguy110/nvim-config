@@ -1,5 +1,12 @@
 #!/bin/bash
 
+##################################################################################################
+#                                                                                                #
+#  Run me anywhere with:                                                                                  #
+#  curl -sSf https://raw.githubusercontent.com/aiguy110/nvim-config/master/install.sh | bash -s  #
+#                                                                                                #
+##################################################################################################
+
 function install_nvim_bin() {
     INSTALL_ROOT=/opt/nvim-root
 
