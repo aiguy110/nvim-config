@@ -15,9 +15,9 @@ function install_nvim_bin() {
     cd /tmp/nvim-setup
 
     # Download and extract Appimage
-    wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+    wget https://github.com/neovim/neovim/releases/download/stable/nvim.appimage 2>&1 > /dev/null
     chmod +x nvim.appimage
-    ./nvim.appimage --appimage-extract
+    ./nvim.appimage --appimage-extract 2>&1 > /dev/null
     mv ./squashfs-root $INSTALL_ROOT 
 
     echo "Downloaded and extacted Appimage squashfs-root to $INSTALL_ROOT"
@@ -25,7 +25,7 @@ function install_nvim_bin() {
     # Attempt to symlink into path
     SUCCESS=0
     echo $PATH | tr ':' '\n' | grep sbin | while read PATH_DIR; do
-        ln -T $INSTALL_ROOT/usr/bin/nvim $PATH_DIR/nvim
+        ln -T $INSTALL_ROOT/usr/bin/nvim $PATH_DIR/nvim 2>&1 > /dev/null
         if [ $? -eq 0 ]; then
             echo "Successfully symlinked nvim into $PATH_DIR"
             SUCCESS=1
@@ -36,7 +36,7 @@ function install_nvim_bin() {
     # If we couldn't symlink into any "sbin" dirs, try "bin" dirs
     if [ $SUCCESS -eq 0 ]; then
         echo $PATH | tr ':' '\n' | grep sbin | while read PATH_DIR; do
-            ln -T $INSTALL_ROOT/usr/bin/nvim $PATH_DIR/nvim
+            ln -T $INSTALL_ROOT/usr/bin/nvim $PATH_DIR/nvim 2>&1 > /dev/null
             if [ $? -eq 0 ]; then
                 echo "Successfully symlinked nvim into $PATH_DIR"
                 SUCCESS=1
