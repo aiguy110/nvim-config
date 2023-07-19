@@ -2,7 +2,7 @@
 
 ##################################################################################################
 #                                                                                                #
-#  Run me anywhere with:                                                                                  #
+#  Run me anywhere with:                                                                         #
 #  curl -sSf https://raw.githubusercontent.com/aiguy110/nvim-config/master/install.sh | bash -s  #
 #                                                                                                #
 ##################################################################################################
