@@ -14,3 +14,5 @@ vim.o.scrolloff = 5
 
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+
+vim.cmd('autocmd FileType resolv set commentstring=#%s')

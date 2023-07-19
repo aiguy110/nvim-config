@@ -3,6 +3,7 @@
 -- how to launch them.
 require("mason").setup()
 require("mason-lspconfig").setup()
+            
 
 -- Update default lspconfig settings to include capabilities
 -- from cmp plugin
@@ -49,3 +50,4 @@ require("josiah.lsp_settings.python")
 require("josiah.lsp_settings.rust")
 require("josiah.lsp_settings.lua")
 require("josiah.lsp_settings.go")
+require("josiah.lsp_settings.java")
