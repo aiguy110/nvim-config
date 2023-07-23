@@ -1,11 +1,11 @@
 #!/bin/bash
 
-##################################################################################################
-#                                                                                                #
-#  Run me anywhere with:                                                                         #
-#  curl -sSf https://raw.githubusercontent.com/aiguy110/nvim-config/master/install.sh | bash -s  #
-#                                                                                                #
-##################################################################################################
+#######################################################################################################################
+#                                                                                                                     #
+#  Run me anywhere with:                                                                                              #
+#  TTY=$(tty) bash -c 'curl -sSf https://raw.githubusercontent.com/aiguy110/nvim-config/master/install.sh | bash -s'  #
+#                                                                                                                     #
+#######################################################################################################################
 
 function install_nvim_bin() {
     INSTALL_ROOT=/opt/nvim-root
@@ -71,7 +71,7 @@ fi
 
 # Check if we should install the custom config
 if [ -e ~/.config/nvim ]; then
-    read -p 'It looks like config files alread exist at ~/.config/nvim. Would you like to overwrite them? [yN]' OVERWRITE_CONFIG < $(tty)
+    read -p 'It looks like config files alread exist at ~/.config/nvim. Would you like to overwrite them? [yN]' OVERWRITE_CONFIG < $TTY
     if [ "$(echo $OVERWRITE_CONFIG | tr 'A-Z' 'a-z')" != "y" ]; then # Using negative logic intentionally to impliment default
         echo "Will not overwrite config. Exiting."
         exit
@@ -96,7 +96,7 @@ cd ~/.config
 # Try cloning via SSH, and prompt for HTTPS clone if that fails
 git clone git@github.com:aiguy110/nvim-config nvim
 if [ $? -ne 0 ]; then
-    read -p 'Issue cloning using SSH. Clone using HTTPS? [Yn]' HTTP_CLONE < $(tty)
+    read -p 'Issue cloning using SSH. Clone using HTTPS? [Yn]' HTTP_CLONE < $TTY
     if [ "$(echo "$HTTP_CLONE" | tr 'A-Z' 'a-z')" != "n" ]; then
         git clone https://github.com/aiguy110/nvim-config nvim
     else
