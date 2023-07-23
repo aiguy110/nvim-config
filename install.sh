@@ -72,7 +72,7 @@ fi
 # Check if we should install the custom config
 if [ -e ~/.config/nvim ]; then
     read -p 'It looks like config files alread exist at ~/.config/nvim. Would you like to overwrite them? [yN]' OVERWRITE_CONFIG
-    if [ "$(echo $OVERWRITE_CONFIG | tr 'A-Z' 'a-z')" -ne "y" ]; then # Using negative logic intentionally to impliment default
+    if [ "$(echo $OVERWRITE_CONFIG | tr 'A-Z' 'a-z')" != "y" ]; then # Using negative logic intentionally to impliment default
         echo "Will not overwrite config. Exiting."
         exit
     else
@@ -97,7 +97,7 @@ cd ~/.config
 git clone git@github.com:aiguy110/nvim-config nvim
 if [ $? -ne 0 ]; then
     read -p "Issue cloning using SSH. Clone using HTTPS? [Yn]" HTTP_CLONE
-    if [ "$(echo "$HTTP_CLONE" | tr 'A-Z' 'a-z')" -ne "n" ]; then
+    if [ "$(echo "$HTTP_CLONE" | tr 'A-Z' 'a-z')" != "n" ]; then
         git clone https://github.com/aiguy110/nvim-config nvim
     else
         echo "Aborting. Consider using ssh-add to add a valid SSH key for this account and trying again."
