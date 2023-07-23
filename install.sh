@@ -105,3 +105,9 @@ if [ $? -ne 0 ]; then
     fi
 fi
 
+# Make sure packer is in place
+if [ -e ~/.local/share/nvim/pack/packer/start/packer.nvim ]; then
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim \
+        ~/.local/share/nvim/site/pack/packer/start/packer.nvim
+fi
+
