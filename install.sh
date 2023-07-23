@@ -12,7 +12,7 @@ function install_nvim_bin() {
     TMP_DIR=/tmp/nvim-setup
 
     # Setup temp dir
-    if [ -f $TMP_DIR ]; then
+    if [ -e $TMP_DIR ]; then
         rm -rf $TMP_DIR
     fi
     mkdir -p $TMP_DIR
@@ -70,7 +70,7 @@ else
 fi
 
 # Check if we should install the custom config
-if [ -f ~/.config/nvim ]; then
+if [ -e ~/.config/nvim ]; then
     read -p 'It looks like config files alread exist at ~/.config/nvim. Would you like to overwrite them? [yN]' OVERWRITE_CONFIG
     if [ "$(echo $OVERWRITE_CONFIG | tr 'A-Z' 'a-z')" -ne "y" ]; then # Using negative logic intentionally to impliment default
         echo "Will not overwrite config. Exiting."
