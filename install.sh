@@ -81,7 +81,7 @@ if [ -f ~/.config/nvim ]; then
 fi
 
 # Check if we can install the custom config
-which git 2>$1 > /dev/null
+which git 2>&1 > /dev/null
 if [ $? -ne 0 ]; then 
     echo "git does not appear to be installed. Please install it and run this script again."
     exit
