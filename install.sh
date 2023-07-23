@@ -131,3 +131,12 @@ if [ $? -ne 0 ]; then
         install_system_package gcc
     fi
 fi
+
+# Install ripgrep if not installed
+which rg > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    read -p 'It looks like ripgrep (rg) is not installed, but it is needed for the "<leader>ff" command. Would you like to install it? [Yn]' INSTALL_RG < $TTY
+    if [ "$(echo "$INSTALL_RG" | tr 'A-Z' 'a-z')" != "n" ]; then
+        install_system_package ripgrep
+    fi
+fi
