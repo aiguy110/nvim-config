@@ -60,6 +60,17 @@ function install_nvim_bin() {
     fi
 }
 
+function install_package() {
+    PACKAGE=$1
+
+    which apt-get > /dev/null 2>&1
+    HAVE_APT=$?
+
+    if [ $HAVE_APT -eq 0 ]; then
+        sudo apt-get install $PACKAGE -y
+    fi
+}
+
 # If the "nvim" command is not executable, make it so
 which nvim 2>&1 > /dev/null
 if [ $? -ne 0 ]; then
@@ -111,3 +122,8 @@ if [ ! -e ~/.local/share/nvim/pack/packer/start/packer.nvim ]; then
         ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 fi
 
+# Install GCC if not installed
+which gcc > /dev/null 2>&1
+if [ $? -ne 0 ]; then
+    install_package gcc
+fi
