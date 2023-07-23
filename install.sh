@@ -67,7 +67,7 @@ function install_package() {
     HAVE_APT=$?
 
     if [ $HAVE_APT -eq 0 ]; then
-        sudo apt-get install $PACKAGE -y
+        sudo apt-get install $PACKAGE -y < $TTY
     fi
 }
 
@@ -125,5 +125,8 @@ fi
 # Install GCC if not installed
 which gcc > /dev/null 2>&1
 if [ $? -ne 0 ]; then
-    install_package gcc
+    read -p 'It looks like gcc is not installed, but it is needed to install TreeSitter. Would you like to install it? [Yn]' INSTALL_GCC < $TTY
+    if [ "$(echo "$INSTALL_GCC" | tr 'A-Z' 'a-z')" != "n" ]; then
+        install_package gcc
+    fi
 fi
