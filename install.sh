@@ -27,14 +27,14 @@ function install_nvim_bin() {
 
     chmod +x nvim.appimage
     ./nvim.appimage --appimage-extract 2>&1 > /dev/null
-    mv ./squashfs-root $INSTALL_ROOT 
+    sudo -E mv ./squashfs-root $INSTALL_ROOT 
 
     echo "Downloaded and extacted Appimage squashfs-root to $INSTALL_ROOT"
 
     # Attempt to symlink into path
     SUCCESS=0
     while read -r PATH_DIR; do
-        ln -s -T $INSTALL_ROOT/usr/bin/nvim $PATH_DIR/nvim 2>&1 > /dev/null
+        sudo -E ln -s -T $INSTALL_ROOT/usr/bin/nvim $PATH_DIR/nvim 2>&1 > /dev/null
         if [ $? -eq 0 ]; then
             echo "Successfully symlinked nvim into $PATH_DIR"
             SUCCESS=1
@@ -45,7 +45,7 @@ function install_nvim_bin() {
     # If we couldn't symlink into any "sbin" dirs, try "bin" dirs
     if [ $SUCCESS -eq 0 ]; then
          while read -r PATH_DIR; do
-            ln -s -T $INSTALL_ROOT/usr/bin/nvim $PATH_DIR/nvim 2>&1 > /dev/null
+            sudo -E ln -s -T $INSTALL_ROOT/usr/bin/nvim $PATH_DIR/nvim 2>&1 > /dev/null
             if [ $? -eq 0 ]; then
                 echo "Successfully symlinked nvim into $PATH_DIR"
                 SUCCESS=1
@@ -88,8 +88,20 @@ if [ $? -ne 0 ]; then
 fi
 
 # If we're here, we're good to clone the config from github
-if [ ! -f ~/.config ]; then
+if [ ! -e ~/.config ]; then
     mkdir ~/.config
 fi
 cd ~/.config
-git clone https://git@github.com/aiguy110/nvim-config nvim
+
+# Try cloning via SSH, and prompt for HTTPS clone if that fails
+git clone git@github.com:aiguy110/nvim-config nvim
+if [ $? -ne 0 ]; then
+    read -p "Issue cloning using SSH. Clone using HTTPS? [Yn]" HTTP_CLONE
+    if [ "$(echo $HTTP_CLONE | tr 'A-Z' 'a-z')" -ne "n" ]; then
+        git clone https://github.com/aiguy110/nvim-config nvim
+    else
+        echo "Aborting. Consider using ssh-add to add a valid SSH key for this account and trying again."
+        exit
+    fi
+fi
+
