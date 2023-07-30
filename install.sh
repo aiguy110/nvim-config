@@ -87,7 +87,7 @@ function install_nvim_config() {
     fi
 
     # Don't ask... just get a fresh install of packer
-    PACKER_ROOT="~/.local/share/nvim/pack/packer/start/packer.nvim"
+    PACKER_ROOT="$HOME/.local/share/nvim/pack/packer/start/packer.nvim"
     rm -rf $PACKER_ROOT
     git clone --depth 1 https://github.com/wbthomason/packer.nvim $PACKER_ROOT
 }
