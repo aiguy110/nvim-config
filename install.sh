@@ -90,6 +90,10 @@ function install_nvim_config() {
     PACKER_ROOT="$HOME/.local/share/nvim/pack/packer/start/packer.nvim"
     rm -rf $PACKER_ROOT
     git clone --depth 1 https://github.com/wbthomason/packer.nvim $PACKER_ROOT
+
+
+    # ... and run PackerSync
+    nvim --headless -c 'PackerSync'
 }
 
 function install_system_package() {
@@ -114,7 +118,7 @@ fi
 
 # Check if we should install the custom config
 if [ -e ~/.config/nvim ]; then
-    read -p 'It looks like config files alread exist at ~/.config/nvim. Would you like to overwrite them? [yN]' OVERWRITE_CONFIG < $TTY
+    read -p 'It looks like config files already exist at ~/.config/nvim. Would you like to overwrite them? [yN]' OVERWRITE_CONFIG < $TTY
     if [ "$(echo $OVERWRITE_CONFIG | tr 'A-Z' 'a-z')" != "y" ]; then # Using negative logic intentionally to impliment default
         echo "Will not overwrite config."
     else
