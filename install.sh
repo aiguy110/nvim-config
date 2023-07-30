@@ -121,6 +121,8 @@ if [ -e ~/.config/nvim ]; then
         rm -rf ~/.config/nvim
         install_nvim_config
     fi
+else
+    install_nvim_config
 fi
 
 # Install GCC if not installed
