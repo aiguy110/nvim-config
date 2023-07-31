@@ -93,7 +93,8 @@ function install_nvim_config() {
 
 
     # ... and run PackerSync
-    nvim --headless -c 'PackerSync'
+    # ... or not. This may be causing problems
+    # nvim --headless -c 'PackerSync'
 }
 
 function install_system_package() {
