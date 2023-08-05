@@ -139,6 +139,9 @@ return require("packer").startup(function(use)
 	use("mfussenegger/nvim-dap-python")
 	use({ "rcarriga/nvim-dap-ui", requires = { "mfussenegger/nvim-dap" } })
 
+    -- Notebook support
+    use { 'dccsillag/magma-nvim', run = ':UpdateRemotePlugins' }
+
     -- Packer Bootstrap
     if packer_bootstrap then
         require('packer').sync()
