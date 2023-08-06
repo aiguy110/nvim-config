@@ -5,5 +5,7 @@ vim.api.nvim_set_keymap('n', '<Leader>rc', ':MagmaReevaluateCell<CR>', {silent=t
 vim.api.nvim_set_keymap('n', '<Leader>rd', ':MagmaDelete<CR>', {silent=true})
 vim.api.nvim_set_keymap('n', '<Leader>ro', ':MagmaShowOutput<CR>', {silent=true})
 
+vim.api.nvim_set_keymap('n', '<Leader>mp', ':MagmaInit python3<CR>', {silent=true})
+
 vim.g.magma_automatically_open_output = false
 vim.g.magma_image_provider = "ueberzug"
