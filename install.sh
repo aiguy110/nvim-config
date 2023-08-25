@@ -21,8 +21,12 @@ function install_nvim_bin() {
     # Download and extract Appimage
     wget -q --show-progress https://github.com/neovim/neovim/releases/download/stable/nvim.appimage 
     if [ $? -ne 0 ]; then
-        echo "Error downloading nvim.appimage. Exiting."
-        exit
+        echo "Error downloading nvim.appimage. Trying again without \"--show-progress\"."
+        wget -q https://github.com/neovim/neovim/releases/download/stable/nvim.appimage 
+        if [ $? -ne 0 ]; then
+            echo "Still can't download nvim.appimage. Exiting."
+            exit
+        fi
     fi
 
     chmod +x nvim.appimage
@@ -102,8 +106,15 @@ function install_system_package() {
     which apt-get > /dev/null 2>&1
     HAVE_APT=$?
 
+    which yum
+    HAVE_YUM=$?
+
     if [ $HAVE_APT -eq 0 ]; then
         sudo apt-get install $PACKAGE -y < $TTY
+    elif [ $HAVE_YUM -eq 0 ]; then
+        sudo yum install $PACKAGE -y < $TTY
+    else
+        echo "No supported package manager is available. Won't install $PACKAGE."
     fi
 }
 
