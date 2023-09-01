@@ -97,7 +97,7 @@ function install_nvim_config() {
 
 
     # ... and run PackerSync
-    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1
 }
 
 function install_system_package() {
