@@ -18,6 +18,9 @@ return require("packer").startup(function(use)
 	-- Packer can manage itself
 	use("wbthomason/packer.nvim")
 
+    -- Github Copilot
+    use("github/copilot.vim")
+
 	-- Telescope fuzzy finder
 	use({
 		"nvim-telescope/telescope.nvim",
@@ -141,6 +144,27 @@ return require("packer").startup(function(use)
 
     -- Notebook support
     use { 'dccsillag/magma-nvim', run = ':UpdateRemotePlugins' }
+
+    -- Lean support
+    use {
+        'Julian/lean.nvim',
+        event = { 'BufReadPre *.lean', 'BufNewFile *.lean' },
+        requires = {
+            'neovim/nvim-lspconfig',
+            'nvim-lua/plenary.nvim',
+            'hrsh7th/nvim-cmp'
+        },
+        config = function()
+            local lean = require('lean')
+            lean.setup {
+                -- lsp = {
+                --     on_attach = on_attach, -- make sure you've defined on_attach elsewhere in your config
+                -- },
+                mappings = true,
+            }
+        end
+    }
+
 
     -- Packer Bootstrap
     if packer_bootstrap then

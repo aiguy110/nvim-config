@@ -29,7 +29,7 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = "nvim_lsp", entry_filter = no_text },
         { name = "nvim_lsp_signature_help", entry_filter = no_text },
-        { name = "vsnip", entry_filter = no_text }, -- For vsnip users.
+        -- { name = "vsnip", entry_filter = no_text }, -- For vsnip users.
         -- { name = 'luasnip' }, -- For luasnip users.
         -- { name = 'ultisnips' }, -- For ultisnips users.
         -- { name = 'snippy' }, -- For snippy users.

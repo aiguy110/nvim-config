@@ -1,3 +1,5 @@
+require("lspconfig").rust_analyzer.setup({})
+
 local rt = require("rust-tools")
 
 local function get_inlay_toggle_closure()

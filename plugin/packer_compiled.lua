@@ -90,6 +90,11 @@ _G.packer_plugins = {
     path = "/home/josiahhunsinger/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp-signature-help",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp-signature-help"
   },
+  ["copilot.vim"] = {
+    loaded = true,
+    path = "/home/josiahhunsinger/.local/share/nvim/site/pack/packer/start/copilot.vim",
+    url = "https://github.com/github/copilot.vim"
+  },
   ["distant.nvim"] = {
     config = { "\27LJ\2\n­\1\0\0\4\0\v\0\0176\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\0025\1\5\0005\2\4\0=\2\6\1=\1\3\0006\1\0\0'\3\a\0B\1\2\0029\1\b\0015\3\t\0=\0\n\3B\1\2\1K\0\1\0\6*\1\0\0\nsetup\fdistant\nother\1\0\0\1\0\1\26StrictHostKeyChecking\ano\bssh\17chip_default\21distant.settings\frequire\0" },
     loaded = true,
@@ -105,6 +110,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/josiahhunsinger/.local/share/nvim/site/pack/packer/start/lazygit.nvim",
     url = "https://github.com/kdheepak/lazygit.nvim"
+  },
+  ["lean.nvim"] = {
+    config = { "\27LJ\2\nC\0\0\4\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\1\2\0005\3\3\0B\1\2\1K\0\1\0\1\0\1\rmappings\2\nsetup\tlean\frequire\0" },
+    loaded = false,
+    needs_bufread = true,
+    only_cond = false,
+    path = "/home/josiahhunsinger/.local/share/nvim/site/pack/packer/opt/lean.nvim",
+    url = "https://github.com/Julian/lean.nvim"
   },
   ["lsp-inlayhints.nvim"] = {
     loaded = true,
@@ -222,26 +235,34 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: distant.nvim
-time([[Config for distant.nvim]], true)
-try_loadstring("\27LJ\2\n­\1\0\0\4\0\v\0\0176\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\0025\1\5\0005\2\4\0=\2\6\1=\1\3\0006\1\0\0'\3\a\0B\1\2\0029\1\b\0015\3\t\0=\0\n\3B\1\2\1K\0\1\0\6*\1\0\0\nsetup\fdistant\nother\1\0\0\1\0\1\26StrictHostKeyChecking\ano\bssh\17chip_default\21distant.settings\frequire\0", "config", "distant.nvim")
-time([[Config for distant.nvim]], false)
--- Config for: null-ls.nvim
-time([[Config for null-ls.nvim]], true)
-try_loadstring("\27LJ\2\n–\2\0\0\t\0\17\0\0306\0\0\0'\2\1\0B\0\2\0029\1\2\0005\3\15\0004\4\5\0009\5\3\0009\5\4\0059\5\5\0059\5\6\0055\a\b\0005\b\a\0=\b\t\aB\5\2\2>\5\1\0049\5\3\0009\5\4\0059\5\n\5>\5\2\0049\5\3\0009\5\v\0059\5\f\5>\5\3\0049\5\3\0009\5\r\0059\5\14\5>\5\4\4=\4\16\3B\1\2\1K\0\1\0\fsources\1\0\0\nspell\15completion\veslint\16diagnostics\vstylua\14filetypes\1\0\0\1\5\0\0\thtml\tjson\tyaml\rmarkdown\twith\rprettier\15formatting\rbuiltins\nsetup\fnull-ls\frequire\0", "config", "null-ls.nvim")
-time([[Config for null-ls.nvim]], false)
--- Config for: toggleterm.nvim
-time([[Config for toggleterm.nvim]], true)
-try_loadstring("\27LJ\2\nR\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\17open_mapping\n<C-\\>\nsetup\15toggleterm\frequire\0", "config", "toggleterm.nvim")
-time([[Config for toggleterm.nvim]], false)
 -- Config for: onedark.nvim
 time([[Config for onedark.nvim]], true)
 try_loadstring("\27LJ\2\n4\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\tload\fonedark\frequire\0", "config", "onedark.nvim")
 time([[Config for onedark.nvim]], false)
+-- Config for: toggleterm.nvim
+time([[Config for toggleterm.nvim]], true)
+try_loadstring("\27LJ\2\nR\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\1\17open_mapping\n<C-\\>\nsetup\15toggleterm\frequire\0", "config", "toggleterm.nvim")
+time([[Config for toggleterm.nvim]], false)
+-- Config for: null-ls.nvim
+time([[Config for null-ls.nvim]], true)
+try_loadstring("\27LJ\2\n–\2\0\0\t\0\17\0\0306\0\0\0'\2\1\0B\0\2\0029\1\2\0005\3\15\0004\4\5\0009\5\3\0009\5\4\0059\5\5\0059\5\6\0055\a\b\0005\b\a\0=\b\t\aB\5\2\2>\5\1\0049\5\3\0009\5\4\0059\5\n\5>\5\2\0049\5\3\0009\5\v\0059\5\f\5>\5\3\0049\5\3\0009\5\r\0059\5\14\5>\5\4\4=\4\16\3B\1\2\1K\0\1\0\fsources\1\0\0\nspell\15completion\veslint\16diagnostics\vstylua\14filetypes\1\0\0\1\5\0\0\thtml\tjson\tyaml\rmarkdown\twith\rprettier\15formatting\rbuiltins\nsetup\fnull-ls\frequire\0", "config", "null-ls.nvim")
+time([[Config for null-ls.nvim]], false)
+-- Config for: distant.nvim
+time([[Config for distant.nvim]], true)
+try_loadstring("\27LJ\2\n­\1\0\0\4\0\v\0\0176\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\0025\1\5\0005\2\4\0=\2\6\1=\1\3\0006\1\0\0'\3\a\0B\1\2\0029\1\b\0015\3\t\0=\0\n\3B\1\2\1K\0\1\0\6*\1\0\0\nsetup\fdistant\nother\1\0\0\1\0\1\26StrictHostKeyChecking\ano\bssh\17chip_default\21distant.settings\frequire\0", "config", "distant.nvim")
+time([[Config for distant.nvim]], false)
 -- Config for: Comment.nvim
 time([[Config for Comment.nvim]], true)
 try_loadstring("\27LJ\2\n£\1\0\0\4\0\b\0\v6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\4\0005\3\3\0=\3\5\0025\3\6\0=\3\a\2B\0\2\1K\0\1\0\ropleader\1\0\2\nblock\14<leader>b\tline\14<leader>c\ftoggler\1\0\0\1\0\2\nblock\15<leader>bc\tline\15<leader>cc\nsetup\fComment\frequire\0", "config", "Comment.nvim")
 time([[Config for Comment.nvim]], false)
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Event lazy-loads
+time([[Defining lazy-load event autocommands]], true)
+vim.cmd [[au BufNewFile *.lean ++once lua require("packer.load")({'lean.nvim'}, { event = "BufNewFile *.lean" }, _G.packer_plugins)]]
+vim.cmd [[au BufReadPre *.lean ++once lua require("packer.load")({'lean.nvim'}, { event = "BufReadPre *.lean" }, _G.packer_plugins)]]
+time([[Defining lazy-load event autocommands]], false)
+vim.cmd("augroup END")
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
