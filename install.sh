@@ -1,11 +1,11 @@
 #!/bin/bash
 
-#######################################################################################################################
-#                                                                                                                     #
-#  Run me anywhere with:                                                                                              #
-#  TTY=$(tty) bash -c 'curl -sSf https://raw.githubusercontent.com/aiguy110/nvim-config/master/install.sh | bash -s'  #
-#                                                                                                                     #
-#######################################################################################################################
+###############################################################################################################################
+#                                                                                                                             #
+#  Run me anywhere with:                                                                                                      #
+#  TTY=$(tty) bash -c 'curl -sSf https://raw.githubusercontent.com/aiguy110/astronvim_user_config/main/install.sh | bash -s'  #
+#                                                                                                                             #
+###############################################################################################################################
 
 function install_nvim_bin() {
     INSTALL_ROOT=/opt/nvim-root
@@ -18,11 +18,17 @@ function install_nvim_bin() {
     mkdir -p $TMP_DIR
     cd $TMP_DIR
 
+    # Figure out which appimage to download
+    APPIMAGE_URL="https://github.com/neovim/neovim/releases/download/stable/nvim.appimage"
+    if [ "$(uname -m)" == "aarch64" ]; then
+        APPIMAGE_URL="https://github.com/matsuu/neovim-aarch64-appimage/releases/download/v0.10.2/nvim-v0.10.2-aarch64.appimage"
+    fi
+
     # Download and extract Appimage
-    wget -q --show-progress https://github.com/neovim/neovim/releases/download/stable/nvim.appimage 
+    wget -q --show-progress $APPIMAGE_URL -O nvim.appimage
     if [ $? -ne 0 ]; then
         echo "Error downloading nvim.appimage. Trying again without \"--show-progress\"."
-        wget -q https://github.com/neovim/neovim/releases/download/stable/nvim.appimage 
+        wget -q $APPIMAGE_URL -O nvim.appimage 
         if [ $? -ne 0 ]; then
             echo "Still can't download nvim.appimage. Exiting."
             exit
@@ -78,43 +84,24 @@ function install_nvim_config() {
     fi
     cd ~/.config
 
-    # Try cloning via SSH, and prompt for HTTPS clone if that fails
-    git clone git@github.com:aiguy110/nvim-config nvim
+    # Clone parent AstroNvim repo over HTTPS
+    git clone https://github.com/AstroNvim/AstroNvim nvim
+    
+    # Checkout latest 3.x.x tag. Probably need to upgrade to 4.x.x at some point.
+    cd nvim
+    git checkout v3.45.3
+    cd ..
+
+    # Try cloning this repo via SSH, and prompt for HTTPS clone if that fails
+    git clone --depth 1 git@github.com:aiguy110/astronvim_user_config nvim/lua/user
     if [ $? -ne 0 ]; then
         read -p 'Issue cloning using SSH. Clone using HTTPS? [Yn]' HTTP_CLONE < $TTY
         if [ "$(echo "$HTTP_CLONE" | tr 'A-Z' 'a-z')" != "n" ]; then
-            git clone https://github.com/aiguy110/nvim-config nvim
+            git clone --depth 1 https://github.com/aiguy110/astronvim_user_config nvim/lua/user
         else
             echo "Aborting. Consider using ssh-add to add a valid SSH key for this account and trying again."
             exit
         fi
-    fi
-
-    # Don't ask... just get a fresh install of packer
-    PACKER_ROOT="$HOME/.local/share/nvim/pack/packer/start/packer.nvim"
-    rm -rf $PACKER_ROOT
-    git clone --depth 1 https://github.com/wbthomason/packer.nvim $PACKER_ROOT
-
-
-    # ... and run PackerSync
-    nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' > /dev/null 2>&1
-}
-
-function install_system_package() {
-    PACKAGE=$1
-
-    which apt-get > /dev/null 2>&1
-    HAVE_APT=$?
-
-    which yum
-    HAVE_YUM=$?
-
-    if [ $HAVE_APT -eq 0 ]; then
-        sudo apt-get install $PACKAGE -y < $TTY
-    elif [ $HAVE_YUM -eq 0 ]; then
-        sudo yum install $PACKAGE -y < $TTY
-    else
-        echo "No supported package manager is available. Won't install $PACKAGE."
     fi
 }
 
@@ -138,22 +125,4 @@ if [ -e ~/.config/nvim ]; then
     fi
 else
     install_nvim_config
-fi
-
-# Install GCC if not installed
-which gcc > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    read -p 'It looks like gcc is not installed, but it is needed to install TreeSitter. Would you like to install it? [Yn]' INSTALL_GCC < $TTY
-    if [ "$(echo "$INSTALL_GCC" | tr 'A-Z' 'a-z')" != "n" ]; then
-        install_system_package gcc
-    fi
-fi
-
-# Install ripgrep if not installed
-which rg > /dev/null 2>&1
-if [ $? -ne 0 ]; then
-    read -p 'It looks like ripgrep (rg) is not installed, but it is needed for the "<leader>ff" command. Would you like to install it? [Yn]' INSTALL_RG < $TTY
-    if [ "$(echo "$INSTALL_RG" | tr 'A-Z' 'a-z')" != "n" ]; then
-        install_system_package ripgrep
-    fi
 fi
