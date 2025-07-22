@@ -22,7 +22,7 @@ function install_nvim_bin_from_cent7_rpm() {
     wget -q --show-progress $BASE_URL$FILENAME -O $FILENAME
     if [ $? -ne 0 ]; then
         echo "Error downloading $FILENAME. Trying again without \"--show-progress\"."
-        wget -q --show-progress $BASE_URL$FILENAME -O $FILENAME
+        wget -q $BASE_URL$FILENAME -O $FILENAME
         if [ $? -ne 0 ]; then
             echo "Still can't download $FILENAME. Exiting."
             popd

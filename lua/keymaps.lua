@@ -26,6 +26,8 @@ vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = 'Find word under
 vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = 'Find keymaps' })
 vim.keymap.set('n', '<leader>fc', builtin.commands, { desc = 'Find commands' })
 
--- My favorites for quick access
-vim.keymap.set('n', '<C-p>', builtin.find_files, { desc = 'Find files' })
-vim.keymap.set('n', '<C-f>', builtin.live_grep, { desc = 'Live grep' })
+
+
+-- ToggleTerm
+vim.keymap.set("n", "<C-\\>", "<cmd>ToggleTerm<CR>")
+vim.keymap.set("t", "<C-\\>", "<cmd>ToggleTerm<CR>")
