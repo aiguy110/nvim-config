@@ -3,7 +3,7 @@
 ################################################################################################################################
 #                                                                                                                              #
 #  Run me anywhere with:                                                                                                       #
-#  TTY=$(tty) bash -c 'curl -sSf https://raw.githubusercontent.com/aiguy110/astronvim_user_config/master/install.sh | bash -s' # 
+#  TTY=$(tty) bash -c 'curl -sSf https://raw.githubusercontent.com/aiguy110/nvim-config/master/install.sh | bash -s' # 
 #                                                                                                                              #
 ################################################################################################################################
 function install_nvim_bin() {
@@ -110,20 +110,12 @@ function install_nvim_config() {
     fi
     cd ~/.config
 
-    # Clone parent AstroNvim repo over HTTPS
-    git clone https://github.com/AstroNvim/AstroNvim nvim
-    
-    # Checkout latest 3.x.x tag. Probably need to upgrade to 4.x.x at some point.
-    cd nvim
-    git checkout v3.45.3
-    cd ..
-
     # Try cloning this repo via SSH, and prompt for HTTPS clone if that fails
-    git clone --depth 1 git@github.com:aiguy110/astronvim_user_config nvim/lua/user
+    git clone --depth 1 git@github.com:aiguy110/nvim-config nvim
     if [ $? -ne 0 ]; then
         read -p 'Issue cloning using SSH. Clone using HTTPS? [Yn]' HTTP_CLONE < $TTY
         if [ "$(echo "$HTTP_CLONE" | tr 'A-Z' 'a-z')" != "n" ]; then
-            git clone --depth 1 https://github.com/aiguy110/astronvim_user_config nvim/lua/user
+            git clone --depth 1 https://github.com/aiguy110/nvim-config nvim
         else
             echo "Aborting. Consider using ssh-add to add a valid SSH key for this account and trying again."
             exit
