@@ -29,7 +29,7 @@ function install_nvim_bin_from_cent7_rpm() {
             exit
         fi
     fi
-    yum install -y ./$FILENAME 
+    yum install -y ./$FILENAME gcc
     popd
 }
 

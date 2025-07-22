@@ -7,3 +7,6 @@ vim.opt.smartindent = true
 -- Line numbers
 vim.opt.number = true         -- Show absolute line number on current line
 vim.opt.relativenumber = true -- Show relative line numbers for all other lines
+
+-- Disable search highlighting
+vim.cmd(":nohl")
