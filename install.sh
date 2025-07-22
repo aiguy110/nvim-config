@@ -1,11 +1,11 @@
 #!/bin/bash
 
-###############################################################################################################################
-#                                                                                                                             #
-#  Run me anywhere with:                                                                                                      #
-#  TTY=$(tty) bash -c 'curl -sSf https://raw.githubusercontent.com/aiguy110/astronvim_user_config/main/install.sh | bash -s'  #
-#                                                                                                                             #
-###############################################################################################################################
+################################################################################################################################
+#                                                                                                                              #
+#  Run me anywhere with:                                                                                                       #
+#  TTY=$(tty) bash -c 'curl -sSf https://raw.githubusercontent.com/aiguy110/astronvim_user_config/master/install.sh | bash -s' # 
+#                                                                                                                              #
+################################################################################################################################
 function install_nvim_bin() {
     IS_CENT7=$(uname -a | grep -c 'el7.x86_64')
     if [ $IS_CENT7 -eq 1 ]; then
