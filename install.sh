@@ -6,8 +6,34 @@
 #  TTY=$(tty) bash -c 'curl -sSf https://raw.githubusercontent.com/aiguy110/astronvim_user_config/main/install.sh | bash -s'  #
 #                                                                                                                             #
 ###############################################################################################################################
-
 function install_nvim_bin() {
+    IS_CENT7=$(uname -a | grep -c 'el7.x86_64')
+    if [ $IS_CENT7 -eq 1 ]; then
+        install_nvim_bin_from_cent7_rpm
+    else
+        install_nvim_bin_from_appimage
+    fi
+}
+
+function install_nvim_bin_from_cent7_rpm() {
+    pushd /tmp/
+    BASE_URL="https://josiahs-random-files.s3.us-east-1.amazonaws.com/"
+    FILENAME="neovim-0.11.3-1.el7.x86_64.rpm"
+    wget -q --show-progress $BASE_URL$FILENAME -O $FILENAME
+    if [ $? -ne 0 ]; then
+        echo "Error downloading $FILENAME. Trying again without \"--show-progress\"."
+        wget -q --show-progress $BASE_URL$FILENAME -O $FILENAME
+        if [ $? -ne 0 ]; then
+            echo "Still can't download $FILENAME. Exiting."
+            popd
+            exit
+        fi
+    fi
+    yum install -y ./$FILENAME 
+    popd
+}
+
+function install_nvim_bin_from_appimage() {
     INSTALL_ROOT=/opt/nvim-root
     TMP_DIR=/tmp/nvim-setup
 
@@ -21,7 +47,7 @@ function install_nvim_bin() {
     # Figure out which appimage to download
     APPIMAGE_URL="https://github.com/neovim/neovim/releases/download/stable/nvim.appimage"
     if [ "$(uname -m)" == "aarch64" ]; then
-        APPIMAGE_URL="https://github.com/matsuu/neovim-aarch64-appimage/releases/download/v0.10.2/nvim-v0.10.2-aarch64.appimage"
+        APPIMAGE_URL="https://github.com/matsuu/neovim-aarch64-appimage/releases/download/v0.11.3/nvim-v0.11.3-aarch64.appimage"
     fi
 
     # Download and extract Appimage
