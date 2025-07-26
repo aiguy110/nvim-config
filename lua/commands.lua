@@ -23,7 +23,7 @@ vim.keymap.set("n", "<leader>gg", _lazygit_toggle, {desc = "Open LazyGit", norem
 
 -- Claude Code
 local Terminal = require("toggleterm.terminal").Terminal
-local claude_code = Terminal:new({cmd = "claude-code", direction = "float", hidden = true})
+local claude_code = Terminal:new({cmd = "claude", direction = "float", hidden = true})
 
 function _claude_code_toggle()
     claude_code:toggle()
