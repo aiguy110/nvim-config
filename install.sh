@@ -52,10 +52,10 @@ function install_nvim_bin_from_appimage() {
 
     # Download and extract Appimage
     wget -q --show-progress $APPIMAGE_URL -O nvim.appimage
-    if [ $? -ne 0 && $? -ne 8 ]; then
+    if [ $? -ne 0 ] && [ $? -ne 8 ]; then
         echo "Error downloading nvim.appimage. Trying again without \"--show-progress\"."
         wget -q $APPIMAGE_URL -O nvim.appimage 
-        if [ $? -ne 0 && $? -ne 8 ]; then
+        if [ $? -ne 0 ] && [ $? -ne 8 ]; then
             echo "Still can't download nvim.appimage. Exiting."
             exit
         fi
