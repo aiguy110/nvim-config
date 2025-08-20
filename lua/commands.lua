@@ -40,5 +40,5 @@ function _claude_code_resume_toggle()
     claude_code_resume:toggle()
 end
 
-vim.keymap.set("n", "<leader>cr", _claude_code_resume_toggle, {desc = "Open Claude Code with Resume", noremap = true, silent = true})
-vim.keymap.set("t", "<leader>cr", _claude_code_resume_toggle, {desc = "Open Claude Code with Resume", noremap = true, silent = true})
+vim.keymap.set("n", "<leader>cR", _claude_code_resume_toggle, {desc = "Open Claude Code with Resume", noremap = true, silent = true})
+vim.keymap.set("t", "<leader>cR", _claude_code_resume_toggle, {desc = "Open Claude Code with Resume", noremap = true, silent = true})
