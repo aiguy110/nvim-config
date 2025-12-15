@@ -20,16 +20,27 @@ function install_nvim_bin_from_cent7_rpm() {
     pushd "$HOME/.tmp"
     BASE_URL="https://josiahs-random-files.s3.us-east-1.amazonaws.com/"
     FILENAME="neovim-0.11.3-1.el7.x86_64.rpm"
-    wget -q --show-progress "$BASE_URL$FILENAME" -O "$FILENAME"
-    if [ $? -ne 0 ]; then
+
+    # Show exact wget command, run it, and capture output+rc. If non-zero, print output and retry without --show-progress.
+    WGET_CMD=(wget -q --show-progress "$BASE_URL$FILENAME" -O "$FILENAME")
+    echo "+ ${WGET_CMD[*]}"
+    WGET_OUT=$("${WGET_CMD[@]}" 2>&1)
+    WGET_RC=$?
+    if [ $WGET_RC -ne 0 ]; then
+        echo "$WGET_OUT"
         echo "Error downloading $FILENAME. Trying again without \"--show-progress\"."
-        wget -q "$BASE_URL$FILENAME" -O "$FILENAME"
-        if [ $? -ne 0 ]; then
+        WGET_CMD=(wget -q "$BASE_URL$FILENAME" -O "$FILENAME")
+        echo "+ ${WGET_CMD[*]}"
+        WGET_OUT=$("${WGET_CMD[@]}" 2>&1)
+        WGET_RC=$?
+        if [ $WGET_RC -ne 0 ]; then
+            echo "$WGET_OUT"
             echo "Still can't download $FILENAME. Exiting."
             popd
             exit
         fi
     fi
+
     yum install -y ./"$FILENAME" gcc
     popd
 }
@@ -52,11 +63,19 @@ function install_nvim_bin_from_appimage() {
     fi
 
     # Download and extract Appimage
-    wget -q --show-progress "$APPIMAGE_URL" -O nvim.appimage
-    if [ $? -ne 0 ] && [ $? -ne 8 ]; then
+    WGET_CMD=(wget -q --show-progress "$APPIMAGE_URL" -O nvim.appimage)
+    echo "+ ${WGET_CMD[*]}"
+    WGET_OUT=$("${WGET_CMD[@]}" 2>&1)
+    WGET_RC=$?
+    if [ $WGET_RC -ne 0 ] && [ $WGET_RC -ne 8 ]; then
+        echo "$WGET_OUT"
         echo "Error downloading nvim.appimage. Trying again without \"--show-progress\"."
-        wget -q "$APPIMAGE_URL" -O nvim.appimage 
-        if [ $? -ne 0 ] && [ $? -ne 8 ]; then
+        WGET_CMD=(wget -q "$APPIMAGE_URL" -O nvim.appimage)
+        echo "+ ${WGET_CMD[*]}"
+        WGET_OUT=$("${WGET_CMD[@]}" 2>&1)
+        WGET_RC=$?
+        if [ $WGET_RC -ne 0 ] && [ $WGET_RC -ne 8 ]; then
+            echo "$WGET_OUT"
             echo "Still can't download nvim.appimage. Exiting."
             exit
         fi
