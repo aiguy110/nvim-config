@@ -16,33 +16,34 @@ function install_nvim_bin() {
 }
 
 function install_nvim_bin_from_cent7_rpm() {
-    pushd /tmp/
+    mkdir -p "$HOME/.tmp"
+    pushd "$HOME/.tmp"
     BASE_URL="https://josiahs-random-files.s3.us-east-1.amazonaws.com/"
     FILENAME="neovim-0.11.3-1.el7.x86_64.rpm"
-    wget -q --show-progress $BASE_URL$FILENAME -O $FILENAME
+    wget -q --show-progress "$BASE_URL$FILENAME" -O "$FILENAME"
     if [ $? -ne 0 ]; then
         echo "Error downloading $FILENAME. Trying again without \"--show-progress\"."
-        wget -q $BASE_URL$FILENAME -O $FILENAME
+        wget -q "$BASE_URL$FILENAME" -O "$FILENAME"
         if [ $? -ne 0 ]; then
             echo "Still can't download $FILENAME. Exiting."
             popd
             exit
         fi
     fi
-    yum install -y ./$FILENAME gcc
+    yum install -y ./"$FILENAME" gcc
     popd
 }
 
 function install_nvim_bin_from_appimage() {
     INSTALL_ROOT=/opt/nvim-root
-    TMP_DIR=/tmp/nvim-setup
+    TMP_DIR="$HOME/.tmp/nvim-setup"
 
     # Setup temp dir
-    if [ -e $TMP_DIR ]; then
-        rm -rf $TMP_DIR
+    if [ -e "$TMP_DIR" ]; then
+        rm -rf "$TMP_DIR"
     fi
-    mkdir -p $TMP_DIR
-    cd $TMP_DIR
+    mkdir -p "$TMP_DIR"
+    cd "$TMP_DIR"
 
     # Figure out which appimage to download
     APPIMAGE_URL="https://github.com/neovim/neovim/releases/download/stable/nvim-linux-x86_64.appimage"
@@ -51,10 +52,10 @@ function install_nvim_bin_from_appimage() {
     fi
 
     # Download and extract Appimage
-    wget -q --show-progress $APPIMAGE_URL -O nvim.appimage
+    wget -q --show-progress "$APPIMAGE_URL" -O nvim.appimage
     if [ $? -ne 0 ] && [ $? -ne 8 ]; then
         echo "Error downloading nvim.appimage. Trying again without \"--show-progress\"."
-        wget -q $APPIMAGE_URL -O nvim.appimage 
+        wget -q "$APPIMAGE_URL" -O nvim.appimage 
         if [ $? -ne 0 ] && [ $? -ne 8 ]; then
             echo "Still can't download nvim.appimage. Exiting."
             exit
@@ -70,7 +71,7 @@ function install_nvim_bin_from_appimage() {
     # Attempt to symlink into path
     SUCCESS=0
     while read -r PATH_DIR; do
-        sudo -E ln -s -T $INSTALL_ROOT/usr/bin/nvim $PATH_DIR/nvim 2>&1 > /dev/null
+        sudo -E ln -s -T "$INSTALL_ROOT/usr/bin/nvim" "$PATH_DIR/nvim" 2>&1 > /dev/null
         if [ $? -eq 0 ]; then
             echo "Successfully symlinked nvim into $PATH_DIR"
             SUCCESS=1
@@ -81,7 +82,7 @@ function install_nvim_bin_from_appimage() {
     # If we couldn't symlink into any "sbin" dirs, try "bin" dirs
     if [ $SUCCESS -eq 0 ]; then
          while read -r PATH_DIR; do
-            sudo -E ln -s -T $INSTALL_ROOT/usr/bin/nvim $PATH_DIR/nvim 2>&1 > /dev/null
+            sudo -E ln -s -T "$INSTALL_ROOT/usr/bin/nvim" "$PATH_DIR/nvim" 2>&1 > /dev/null
             if [ $? -eq 0 ]; then
                 echo "Successfully symlinked nvim into $PATH_DIR"
                 SUCCESS=1
